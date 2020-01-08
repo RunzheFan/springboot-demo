@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>user</title>
+<link rel="stylesheet" th:href="@{/css/common.css}"></link>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"></link>
+<script type="text/javascript" th:src="@{/js/jquery.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+</head>
+<body>
+	<div th:include="common :: header"></div>
+
+	<div class="container">
+		<br />
+		<h1>List</h1>
+		<br /> <br />
+		<div class="with:80%">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Title</th>
+						<th>State</th>
+						<th>Date</th>
+						<th>Edit</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="article : ${article}">
+						<th scope="row" th:text="${article.id}">1</th>
+						<td th:text="${article.title}">neo</td>
+						<td th:if="${article.state}==1">Public</td>
+						<td th:if="${article.state}==2">Private</td>
+						<td th:text="${article.date}">neo</td>
+						<td><button th:id="@{/personal/articles/} + ${article.id}"
+								onclick="updateBtn(this)">edit</button></td>
+						<td><button th:id="@{/personal/articles/} + ${article.id}"
+								onclick="deleteBtn(this)">delete</button></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-2 control-label">
+				<a href="/toAdd" th:href="@{/personal/initArticle}"
+					class="btn btn-info">add</a>
+			</div>
+		</div>
+		<script>
+			function updateBtn(node) {
+				var url = node.id;
+				window.location.href = url;
+			}
+			function deleteBtn(node) {
+				var url = node.id;
+				$.ajax({
+					url : url,
+					type : 'delete',
+					success : function(data) {
+						if (data.result) {
+							window.location.reload();
+						}
+					}
+				})
+			}
+		</script>
+</body>
+</html>

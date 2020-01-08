@@ -1,0 +1,23 @@
+a {
+    text-decoration: none;
+    background-color: transparent;
+    color: #f8f9fa;
+}
+
+.header {
+	background: #117a8b;
+}
+
+.header a{
+	color: #f8f9fa;
+}
+
+.header a:hover{
+	text-decoration: none;
+	color: #f8f9fa;
+}
+
+.header .navigation {
+	width: 80%;
+	margin: 0 auto;
+}

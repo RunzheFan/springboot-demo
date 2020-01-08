@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<body>
+	<div th:fragment="header">
+		<div class="header">
+			<div class="navigation">
+				<nav class="navbar navbar-default" role="navigation">
+					<div class="container-fluid">
+						<div class="navbar-header">
+							<a class="navbar-brand" href="#">HOMEPAGE</a>
+						</div>
+						<ul class="nav navbar-nav navbar-right">
+							<li><a th:if="${user == null}" th:href="@{/member/register}">
+									REGISTER</a></li>
+							<li><a th:unless="${user == null}"
+								th:href="@{/personal/articles}" th:text="${user.nickName}"></a></li>
+							<li><a th:if="${user == null}" th:href="@{/login}">
+									LOGIN</a></li>
+							<li><a th:unless="${user == null}" th:href="@{/loginout}">
+									LOGOUT</a></li>
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<div th:fragment="new">
+		<table class="table table-hover">
+			<tbody>
+				<tr th:each="article : ${article}">
+					<td th:text="${article.title}">neo</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="with:80%"></div>
+	</div>
+</body>
+</html>
