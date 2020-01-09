@@ -10,6 +10,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -55,12 +59,16 @@ public class PersonalController {
 
 	@ApiOperation(value="getArticleList", notes="getArticleList")
 	@GetMapping(value = "/articles")
-	public String list(Model model, HttpServletRequest request) {
+	public String list(Model model, HttpServletRequest request, Integer page, Integer size) {
 		String userName = (String) request.getSession().getAttribute("loginName");
 		User user = userService.findByUserName(userName);
 		model.addAttribute("user", user);
 		List<Map<String, Object>> article = articleService.getArticleListByUserId(user.getId());
 		model.addAttribute("article", article);
+		//paging
+		Page<Article> datas = articleService.findArticleNoCriteria(page, size);
+		model.addAttribute("PageData", datas);
+		
 		return "web/personal/articleList";
 	}
 

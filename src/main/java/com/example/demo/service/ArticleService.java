@@ -4,10 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Article;
 import com.example.demo.model.ArticleRepository;
+import com.example.demo.util.PageUtil;
 
 @Service
 public class ArticleService {
@@ -33,5 +38,8 @@ public class ArticleService {
 	public List<Article> getArticleListByState(String state) {
 		return articleRep.findAllByState(state);
 	}
-	
+	public Page<Article> findArticleNoCriteria(Integer page,Integer size) {
+		Pageable pageable = PageUtil.getPageRequest(page, size, null);
+        return articleRep.findAll(pageable);
+	}
 }

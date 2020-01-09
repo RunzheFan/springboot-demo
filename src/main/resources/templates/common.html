@@ -35,5 +35,33 @@
 		</table>
 		<div class="with:80%"></div>
 	</div>
+
+	<div th:fragment="page">
+		<div class="paging">
+			<ul class="pagination">
+				<li class="page-item"
+					data-th-classappend="*{first} ? 'disabled' : ''"><a
+					href="javascript:void(0);" class="page-link" 
+					th:attr="page=${PageData.number} - 1" aria-label="Previous"> <span
+						aria-hidden="true">«</span>
+				</a></li>
+
+				<li class="page-item"
+					data-th-each="i : ${#numbers.sequence(1, PageData.totalPages)}"
+					data-th-classappend="${(PageData.number + 1) eq i} ? 'active' : ''">
+					<a class="page-link" th:attr="page=${i}"
+					href="javascript:void(0);"> <span data-th-text="${i}"></span>
+				</a>
+				</li>
+
+				<li class="page-item"
+					data-th-classappend="*{last} ? 'disabled' : ''"><a
+					href="javascript:void(0);" class="page-link"
+					th:attr="page=${PageData.number} + 2" aria-label="Next"> <span
+						aria-hidden="true">»</span>
+				</a></li>
+			</ul>
+		</div>
+	</div>
 </body>
 </html>

@@ -28,15 +28,15 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="article : ${article}">
-						<th scope="row" th:text="${article.id}">1</th>
-						<td th:text="${article.title}">neo</td>
-						<td th:if="${article.state}==1">Public</td>
-						<td th:if="${article.state}==2">Private</td>
-						<td th:text="${article.date}">neo</td>
-						<td><button th:id="@{/personal/articles/} + ${article.id}"
+					<tr th:each="obj : ${PageData}">
+						<th scope="row" th:text="${obj.id}">1</th>
+						<td th:text="${obj.title}">neo</td>
+						<td th:if="${obj.state}==1">Public</td>
+						<td th:if="${obj.state}==2">Private</td>
+						<td th:text="${obj.date}">neo</td>
+						<td><button th:id="@{/personal/articles/} + ${obj.id}"
 								onclick="updateBtn(this)">edit</button></td>
-						<td><button th:id="@{/personal/articles/} + ${article.id}"
+						<td><button th:id="@{/personal/articles/} + ${obj.id}"
 								onclick="deleteBtn(this)">delete</button></td>
 					</tr>
 				</tbody>
@@ -48,6 +48,9 @@
 					class="btn btn-info">add</a>
 			</div>
 		</div>
+		
+		<div th:include="common :: page"></div>
+		
 		<script>
 			function updateBtn(node) {
 				var url = node.id;
@@ -65,6 +68,11 @@
 					}
 				})
 			}
+			$('.page-link').click(function(){
+				var index = $(this).attr("page");
+				var url = "/personal/articles?page=" + index;
+				window.location.href = url;
+			});
 		</script>
 </body>
 </html>
